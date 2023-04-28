@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 20% 30% 30% 20%;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "header header nav nav"
+    "main main main aside"
+    "footer footer footer footer"
+    ;
+    
+}    
+    /*background-image: url(blue_lemon.jfif);
+    background-repeat: no-repeat;
+    background-size: cover;*/
+
+header {
+    background-color: blue;
+    color: white;
+    padding: 20px;
+    grid-area: header;
+}
+
+nav {
+    background-color: yellow;
+    grid-area: nav;
+    list-style: none;
+}
+
+main {
+    background-color: darkblue;
+    color: white;
+    grid-area: main;
+    height: 100px;
+}
+
+aside {
+    background-color: lightgreen;
+    grid-area: aside;
+}
+
+footer {
+    background-color: darkgreen;
+    color: white;
+    grid-area: footer;
+}

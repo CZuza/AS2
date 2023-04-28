@@ -1,0 +1,68 @@
+.on{
+    display: none;
+}
+
+.off{
+    display: none;
+}
+
+main{
+    height: 150vh;
+}
+
+
+nav {
+    background-color: yellow;
+}
+
+nav ul {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    text-align: center;
+}
+
+nav>ul>li {
+    position: relative;
+    display: left;
+}
+
+nav ul ul {
+    position: absolute;
+    display: block;
+    background-color: green;
+    padding: 0;
+    width: 100%;
+    /* transform: translate(0, -100%); */
+    z-index: -1; /* This will place the sub menu behind the navigation */
+    transform-origin: bottom right;   
+    transition: transform 0.3s ease-in;
+}
+ 
+nav>ul>li:hover ul {
+    /* transform: translate(0, 0); */
+    z-index: 1;
+} 
+
+/*The following part is responsible for the rotation animation*/
+
+#clicked > nav > ul > li:hover ul {
+    animation: move_the_menu 0.5s;
+}
+
+@keyframes move_the_menu {
+    0% {
+        transform: rotate(90deg);
+        opacity: 0;
+    }
+
+    100% {
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+}
+/*End of rotation animation*/
+
+#clicked > nav > ul > li> ul > li:hover {
+    background-color: lightblue;
+}

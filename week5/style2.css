@@ -1,0 +1,55 @@
+* {
+    margin: 0.2em;
+}
+
+body {
+    background-color: rgb(31, 31, 31);
+}
+
+label {
+    color: rgb(255, 255, 255);
+}
+
+/*Making the border radius sligthly rounded*/
+input {
+    border-radius: 15%;
+}
+
+form {
+    display: grid;
+    width: 21em;
+    grid-template-columns: 20% 5% 70% 5%;
+    align-items: center;
+    grid-gap: 0.2em;
+    background-color: rgb(31, 31, 31);
+}
+
+input[type="submit"] {
+    grid-column: 2;
+}
+
+input::placeholder {
+    color: #a6a6a6;
+}
+
+#tickLabel {
+    width: 7vw;
+}
+
+div {
+    margin: 0;
+    display: grid;
+    width: 20em;
+    grid-template-columns: 20% 30% 50%;
+    align-items: center;
+    grid-gap: 0.2em;
+}
+
+/* #checkBox {
+    grid-column: 2;
+} */
+
+#submitButton {
+    width: 5vw;
+    height: 2.7vh;
+}

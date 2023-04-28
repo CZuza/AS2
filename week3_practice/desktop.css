@@ -1,0 +1,60 @@
+.on{
+    display: none;
+}
+
+.off{
+    display: none;
+}
+
+main{
+    height: 150vh;
+}
+
+menu:hover{
+    color:red;
+}
+
+.c1:hover {
+    color: red;
+}
+
+.c2:hover {
+    color: red;
+}
+
+.c3:hover {
+    color: red;
+}
+
+nav {
+    background-color: yellow;
+}
+
+nav ul {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    text-align: center;
+}
+
+nav>ul>li {
+    position: relative;
+    display: left;
+}
+
+nav ul ul {
+    position: absolute;
+    display: block;
+    background-color: green;
+    padding: 0;
+    width: 100%;
+    transform: translate(0, -100%);
+    z-index: -1; /* This will place the sub menu behind the navigation */ 
+    transform-origin: bottom right;   
+    transition: transform 0.3s ease-in;
+}
+
+nav>ul>li:hover ul {
+    transform: translate(0, 0);
+    z-index: 1;
+}

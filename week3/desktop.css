@@ -1,0 +1,74 @@
+.on{
+    display: none;
+}
+
+.off{
+    display: none;
+}
+
+
+main{
+    height:100vh;
+}
+
+menu:hover{
+    color:aqua;
+}
+
+.c1:hover {
+    color: red;
+}
+
+.c2:hover {
+    color: red;
+}
+
+.c3:hover {
+    color: red;
+}
+
+nav {
+    background-color: yellow;
+}
+
+nav > ul {
+    list-style-type: none;
+    text-align: center;
+
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    height: 100%;
+}
+
+nav > ul > li {
+    height: 100%;
+}
+
+nav>ul>li {
+    position: relative;
+}
+
+nav li ul li:hover{
+    background-color: lightblue;
+}
+
+body { 
+    overflow-x: hidden; /* Hide horizontal scrollbar */ 
+} 
+
+nav ul ul {
+    position: absolute;
+    display: block;
+    background-color: green;
+    padding: 0;
+    width: 100%;
+    opacity: 0; /* Sub menus are completely see-through */
+    transition: opacity 0.3s ease-in; /* it will take 0.3 seconds to fade in */
+    pointer-events: none; /* Sub menus cannot be interacted with */
+}
+
+nav>ul>li:hover ul {
+    display: block;
+    opacity: 1; /* Sub menus are completely visible */
+    pointer-events: auto; /* Sub menus can be interacted with */
+}

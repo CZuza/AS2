@@ -1,0 +1,46 @@
+.circle {
+    width: 10em;
+    height: 10em;
+    background-color: red;
+    border-radius: 100%;
+    animation: move_the_circle 10s infinite;
+}
+
+@keyframes move_the_circle {
+    0% {
+        transform: translate(93vw, 0);
+        width: 5em;
+        height: 5em;
+        background-color: blue;
+    }
+
+    20% {
+        transform: translate(0, 75vh);
+        width: 10em;
+        height: 10em;
+        background-color: red;
+    }
+
+    40% {
+        transform: translate(93vw, 83vh);
+        width: 5em;
+        height: 5em;
+        background-color: blue;
+    }
+
+    60% {
+        transform: translate(0, 0);
+        width: 10em;
+        height: 10em;
+        background-color: red;
+
+    }
+
+    100% {
+        transform: translate(93vw, 0);
+        width: 5em;
+        height: 5em;
+        background-color: blue;
+    }
+}
+

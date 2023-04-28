@@ -1,0 +1,79 @@
+* {
+    margin: 0.2em;
+}
+
+body {
+    background-color: rgb(31, 31, 31);
+}
+
+label {
+    color: rgb(255, 255, 255);
+}
+
+/*Making the border radius sligthly rounded*/
+input {
+    border-radius: 5%;
+    background-color: rgb(120, 120, 120);
+    border-color: rgb(220, 220, 220);
+}
+
+/*Likewise with the dropdow menu*/
+select {
+    background-color: rgb(120, 120, 120);
+    color: white;
+    border-radius: 15%;
+    border-color: rgb(220, 220, 220);
+}
+
+/*Form grid*/
+form {
+    display: grid;
+    width: 21em;
+    grid-template-columns: 20% 5% 70% 5%;
+    align-items: center;
+    grid-gap: 0.2em;
+    background-color: rgb(31, 31, 31);
+}
+
+input[type="submit"] {
+    grid-column: 2;
+}
+
+input::placeholder {
+    color: white;
+}
+
+#tickLabel {
+    width: 7vw;
+}
+
+/*Checkbox grid*/
+div.tickBox {
+    margin: 0;
+    display: grid;
+    width: 20em;
+    grid-template-columns: 1% 44% 55%;
+    align-items: center;
+    grid-gap: 0.2em;
+}
+
+/*Maximizing tickLabel space*/
+#tickLabel {
+    width: 15vw;
+}
+
+div.Submit {
+    margin: 0;
+    display: grid;
+    width: 20em;
+    grid-template-columns: 30% 30% 40%;
+    align-items: center;
+    grid-gap: 0.2em;
+}
+
+#submitButton {
+    width: 5vw;
+    height: 2.7vh;
+    color: white;
+    border-color: rgb(220, 220, 220);
+}

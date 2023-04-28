@@ -1,0 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.csy1018 {
+    background-color: yellow;
+    width: 960px;
+    float: left;
+}
+
+.csy1019 {
+    background-color: blue;
+    width: 960px;
+    float: left;
+}

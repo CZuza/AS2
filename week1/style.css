@@ -1,0 +1,16 @@
+.nav {
+    display: flex;
+    justify-content: space-evenly;
+    list-style: none;
+}
+
+body {
+    background-color: aqua;
+}
+
+h1 {
+    font-family: cursive/*'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif*/;
+}
+/* li {
+    color: red;
+} */
