@@ -106,42 +106,44 @@ function myLoadFunction() {
 	var start = document.getElementById('start');
 	start.addEventListener('click', startGame);
 
+	positionBomb();
 }
 
 function startGame() {
-
+    
 	var start = document.getElementById('start');
 	start.style.display = 'none';
 
 	timeout = setInterval(move, 10);
 	document.addEventListener('keydown', keydown);
 	document.addEventListener('keyup', keyup);
-
-	setInterval(moveBombs, 10);
+    
+	setInterval(moveBomb, 7);
+	
 }
 
 function positionBomb() {
-	var bombs = documnets.getElementsByClassName('bomb');
+	var bombs = document.getElementsByClassName('bomb');
 
-	for(var i = 0; i < bombs.length; i++){
-		var tankTop = document.getElementsByClassName('tank')[i].offsetTop;
+	for(var i = 0; i < bombs.length; i++) {
 		var tankLeft = document.getElementsByClassName('tank')[i].offsetLeft;
+		var tankTop = document.getElementsByClassName('tank')[i].offsetTop;
 
-		bombs[i].style.top = tankTop + 10 + 'px';
 		bombs[i].style.left = tankLeft + 'px';
+		bombs[i].style.top = tankTop + 10 + 'px';
 	}
+
 }
 
-function moveBombs() {
+function moveBomb() {
 	var bombs = document.getElementsByClassName('bomb');
-	var player = document.getElementsById('player');
 
-	for(var i = 0; i<bombs.length; i++) {
+	for(var i = 0; i < bombs.length; i++) {
 		var left = bombs[i].offsetLeft;
-		var newLeft = left - 1;
+		left--;
 
-		if(newLeft>0) {
-			bombs[i].style.left = newLeft + 'px';
+		if(left>0) {
+			bombs[i].style.left = left + 'px';
 		}
 		else {
 			bombs[i].classList = 'explosion';
@@ -151,11 +153,23 @@ function moveBombs() {
 		/* bombs[i].style.left = left-- + 'px'; */
 		
 	}
-	var element = document.elementFromPoint(player.offsetleft, player.offsetTop);
+	var player = document.getElementById('player');
+	var topLeft = document.elementFromPoint(player.offsetLeft, player.offsetTop);
+	var topRight = document.elementFromPoint(player.offsetLeft + 32, player.offsetTop);
+	var bottomLeft = document.elementFromPoint(player.offsetLeft, player.offsetTop + 46);
+	var bottomRight = document.elementFromPoint(player.offsetLeft + 32, player.offsetTop + 46);
 
-	if(element.classList.contains('explosion')){
-		/* alert('dead'); */
+	if(topLeft.classList.contains('explosion') || topRight.classList.contains('explosion') 
+	|| bottomLeft.classList.contains('explosion') || bottomRight.classList.contains('explosion')) {
+		clearInterval(timeout);
+		document.removeEventListener('keyup', keyup);
+		document.removeEventListener('keydown', keydown);
+
 		player.classList = 'character stand down dead';
+
+		var start = document.getElementsByClassName('start')[0];
+		start.style.display = 'block';
+		start.firstChild.nodeValue = 'Game Over';
 	}
 }
 
