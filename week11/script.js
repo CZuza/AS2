@@ -12,7 +12,13 @@ function setDice() {
     var randomNumber = Math.ceil(Math.random() * 6);
     this.classList ='side' + randomNumber;
 
-    this.nextSibling.nextSibling.firstChild.nodeValue = 'You rolled a ' + randomNumber;
+    var p = this.nextSibling.nextSibling;
+    var numbers = ['one', 'two', 'three', 'four', 'five', 'six'];
+    for(var i = 1; i <= 6; i++) {
+      if (i == randomNumber){
+        p.firstChild.nodeValue = 'You rolled a ' + numbers[i-1];
+      }
+    }
 }
 
 
