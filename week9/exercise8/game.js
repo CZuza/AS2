@@ -176,4 +176,33 @@ function setBody() {
     body.style.backgroundImage = 'url(images/' + this.id + '.png)';
 }
 
+/* function createApple() {
+	var apple = document.createElement('div');
+	apple.classList = 'apple';
+	document.body.appendChild(apple);
+
+	return apple;
+
+	function moveApple(apple) {
+		var left = apple.OffsetLeft;
+
+		setInterval(function(){
+			left = left + 1;
+
+			if (left < (window.innerWidth - apple.offsetWidth)) {
+				apple.style.left = left +'px';
+			}
+			else {
+				apple.classList = 'explosion';
+			}
+		}, 10);
+	}
+
+	function collision(left, top, collide) {
+
+	}
+}  */
+
+
+
 document.addEventListener('DOMContentLoaded', myLoadFunction);
