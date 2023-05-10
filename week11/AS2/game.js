@@ -137,7 +137,7 @@ function positionBomb() {
 
 }
 
-function moveBomb() {
+/* function moveBomb(bomb) {
 	var bombs = document.getElementsByClassName('bomb');
 
 	for (var i = 0; i < bombs.length; i++) {
@@ -154,7 +154,7 @@ function moveBomb() {
 		}
 		/* bombs[i].style.left = left-- + 'px'; */
 
-	}
+/*	}
 	var player = document.getElementById('player');
 	var topLeft = document.elementFromPoint(player.offsetLeft, player.offsetTop);
 	var topRight = document.elementFromPoint(player.offsetLeft + 32, player.offsetTop);
@@ -174,7 +174,7 @@ function moveBomb() {
 		start.firstChild.nodeValue = 'Game Over';
 	}
 }
-
+ */
 function positionTank() {
 	var tanks = document.getElementsByClassName('tank');
 	for (var i = 0; i < tanks.length; i++) {
@@ -196,11 +196,38 @@ function positionTank() {
 
 function moveBomb(bomb) {
 	var left = bomb.offsetLeft;
+	var speed = Math.ceil(Math.random() * 25);
 
 	setInterval(function() {
 		left--;
-		bomb.style.left = left + 'px';
-	}, 10)
+
+		if(left > 0){
+			bomb.style.left = left + 'px';
+		}
+		else{
+			bomb.classList = 'explosion';
+		}
+	}, speed);
+    
+	var player = document.getElementById('player');
+	var topLeft = document.elementFromPoint(player.offsetLeft, player.offsetTop);
+	var topRight = document.elementFromPoint(player.offsetLeft + 32, player.offsetTop);
+	var bottomLeft = document.elementFromPoint(player.offsetLeft, player.offsetTop + 46);
+	var bottomRight = document.elementFromPoint(player.offsetLeft + 32, player.offsetTop + 46);
+
+	if (topLeft.classList.contains('explosion') || topRight.classList.contains('explosion')
+		|| bottomLeft.classList.contains('explosion') || bottomRight.classList.contains('explosion')) {
+		clearInterval(timeout);
+		document.removeEventListener('keyup', keyup);
+		document.removeEventListener('keydown', keydown);
+
+		player.classList = 'character stand down dead';
+
+		var start = document.getElementsByClassName('start')[0];
+		start.style.display = 'block';
+		start.firstChild.nodeValue = 'Game Over';
+	
+}
 }
 
 
