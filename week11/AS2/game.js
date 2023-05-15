@@ -101,12 +101,22 @@ function keydown(event) {
 	}
 }
 
+// This variable will be used to start and stop the tanks movement
+var tanksTimer = 0;
+
 
 function myLoadFunction() {
 	var start = document.getElementById('start');
-	start.addEventListener('click', startGame);
+	// If the button doesn't display 'Game Over' and is clicked, start game
+	if(start.firstChild.nodeValue != 'Game Over'){
+		start.addEventListener('click', startGame);
+		positionBomb();
+	}
+	else{
+		// To stop the tanks from moving after Game Over
+		clearInterval(tanksTimer);
+	}
 
-	positionBomb();
 }
 
 function startGame() {
@@ -119,8 +129,15 @@ function startGame() {
 	document.addEventListener('keyup', keyup);
 
 	//setInterval(moveBomb, 7);
-	positionTank();
-	setInterval(positionTank, 3000);
+	if(start.firstChild.nodeValue != 'Game Over'){
+		positionTank();
+		tanksTimer = setInterval(positionTank, 3000);
+	}
+	else{
+		// If the button displays 'Game Over', it will stay on the screen
+		var start = document.getElementsByClassName('start')[0];
+		start.style.display = 'block';
+	}
 
 }
 
@@ -178,7 +195,7 @@ function positionBomb() {
 function positionTank() {
 	var tanks = document.getElementsByClassName('tank');
 	for (var i = 0; i < tanks.length; i++) {
-		var random = Math.ceil(Math.random() * 100);
+		var random = Math.ceil(Math.random() * 81 + 9);
 		tanks[i].style.top = random + 'vh';
 
 		var bomb = document.createElement('div');
@@ -217,11 +234,15 @@ function moveBomb(bomb) {
 
 	if (topLeft.classList.contains('explosion') || topRight.classList.contains('explosion')
 		|| bottomLeft.classList.contains('explosion') || bottomRight.classList.contains('explosion')) {
+		
+		player.classList = 'character stand down dead';
+		// To prevent the character from moving after Game Over
 		clearInterval(timeout);
+		// To stop the tanks from moving after Game Over
+		clearInterval(tanksTimer);
 		document.removeEventListener('keyup', keyup);
 		document.removeEventListener('keydown', keydown);
 
-		player.classList = 'character stand down dead';
 
 		var start = document.getElementsByClassName('start')[0];
 		start.style.display = 'block';

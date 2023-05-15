@@ -12,8 +12,8 @@ function click(event) {
 
     // clicked point becomes the center of the circle
 
-    circle.style.left = event.clientX - (size / 2) + 'px';
-    circle.style.top = event.clientY - (size / 2) + 'px';
+     circle.style.left = event.clientX - size/2 + 'px';
+     circle.style.top = event.clientY - size/2 + 'px';
     
     circle.style.borderRadius = '100%';
 
@@ -26,14 +26,18 @@ function click(event) {
 
   
 
-    /* var top = circle.offsetTop;
-    var left = circle.offsetLeft; */
+    var top = event.clientY - size/2;
+    var left = circle.offsetLeft; // could replace with: event.clientX - size/2;
     var speed = Math.ceil(Math.random() * 100); 
 
     setInterval(function () {
-        size = size - 1;
-        circle.style.width = size + 'px';
-        circle.style.height = size + 'px';
+        top = top + 1;
+        circle.style.top = top + 'px';
+        /*
+        left--;
+        circle.style.left = left + 'px';
+        */
+
     }, speed);
 
     var body = document.getElementsByTagName('body')[0];
