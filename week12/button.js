@@ -3,10 +3,10 @@ function loadFunction() {
     button.addEventListener('click', addToList);
 }
 
+var numbers = [];
 function addToList() {
     var ul = document.getElementsByTagName('ul')[0];
     var li = document.createElement('li');
-    var numbers = [];
 
     var pickAgain = true;
     while (pickAgain == true) {
