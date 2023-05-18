@@ -3,6 +3,8 @@ var downPressed = false;
 var leftPressed = false;
 var rightPressed = false;
 var lastPressed = false;
+//This variable is supposed to determine if the message displays the "start" message
+var isStart = true;
 
 function keyup(event) {
 	var player = document.getElementById('player');
@@ -101,6 +103,13 @@ function keydown(event) {
 	}
 }
 
+function stopCharacter() {
+	clearInterval(timeout);
+	document.removeEventListener('keyup', keyup);
+	document.removeEventListener('keydown', keydown);
+	player.classList = 'character stand down dead';
+}
+
 // This variable will be used to start and stop the tanks movement
 var tanksTimer = 0;
 
@@ -113,7 +122,9 @@ function myLoadFunction() {
 		positionBomb();
 	}
 	else{
-		// To stop the tanks from moving after Game Over
+		// To prevent the character from moving if Game Over message is clicked (not working :(| )
+		start.addEventListener('click', stopCharacter);
+		// To stop the tanks from moving after Game Over message is clicked 
 		clearInterval(tanksTimer);
 	}
 
@@ -128,7 +139,7 @@ function startGame() {
 	document.addEventListener('keydown', keydown);
 	document.addEventListener('keyup', keyup);
 
-	//setInterval(moveBomb, 7);
+	//If the button displays "Start" (not "Game Over"), start the game if clicked
 	if(start.firstChild.nodeValue != 'Game Over'){
 		positionTank();
 		tanksTimer = setInterval(positionTank, 3000);
@@ -207,10 +218,10 @@ function moveBomb(bomb) {
 		player.classList = 'character stand down dead';
 		// To prevent the character from moving after Game Over
 		clearInterval(timeout);
-		// To stop the tanks from moving after Game Over
-		clearInterval(tanksTimer);
 		document.removeEventListener('keyup', keyup);
 		document.removeEventListener('keydown', keydown);
+		// To stop the tanks from moving after Game Over
+		clearInterval(tanksTimer);
 
 
 		var start = document.getElementsByClassName('start')[0];
