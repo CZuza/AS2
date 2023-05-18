@@ -206,16 +206,16 @@ function moveBomb(bomb) {
 		else{
 			bomb.classList = 'explosion';
 
-			//Remove the explosion after 1 sec.
+			//Remove the explosion after 1.5 sec.
 			setTimeout(function(){
 				bomb.parentNode.removeChild(bomb);
-			}, 1000)
+			}, 1500)
 
 			//clearInterval(timeout);
 		}
 	}, speed);
     
-	var player = document.getElementById('player');
+	/* var player = document.getElementById('player');
 	var topLeft = document.elementFromPoint(player.offsetLeft, player.offsetTop);
 	var topRight = document.elementFromPoint(player.offsetLeft + 32, player.offsetTop);
 	var bottomLeft = document.elementFromPoint(player.offsetLeft, player.offsetTop + 46);
@@ -237,9 +237,48 @@ function moveBomb(bomb) {
 		start.style.display = 'block';
 		start.firstChild.nodeValue = 'Game Over';
 		//This shows that the message is no longer "START"
-		isStart = false;
+		isStart = false; 
 	
+} */
+    var player = document.getElementById('player');
+
+	//Doesn't work :(
+	if(collide(bomb, 'cactus') == true){
+		bomb.classList = 'explosion';	//Remove the explosion after 1.5 sec.
+		setTimeout(function(){
+			bomb.parentNode.removeChild(bomb);
+		}, 1500)
+	}
+	
+	
+	if (collide(player, 'explosion') == true) {
+        player.classList = 'character stand down dead';
+		// To prevent the character from moving after Game Over
+		clearInterval(timeout);
+		document.removeEventListener('keyup', keyup);
+		document.removeEventListener('keydown', keydown);
+		// To stop the tanks from moving after Game Over
+		clearInterval(tanksTimer);
+
+		var start = document.getElementsByClassName('start')[0];
+		start.style.display = 'block';
+		start.firstChild.nodeValue = 'Game Over';
+		//This shows that the message is no longer "START"
+		isStart = false;
+	}
+
 }
+
+function collide(element, collision) {
+	var topLeft = document.elementFromPoint(element.offsetLeft, element.offsetTop);
+	var topRight = document.elementFromPoint(element.offsetLeft + element.offsetWidth, element.offsetTop);
+	var bottomLeft = document.elementFromPoint(element.offsetLeft, element.offsetTop + element.offsetHeight);
+	var bottomRight = document.elementFromPoint(element.offsetLeft + element.offsetWidth, element.offsetTop + element.offsetHeight);
+
+	if(topLeft.classList.contains(collision) || topRight.classList.contains(collision) 
+	|| bottomLeft.classList.contains(collision) || bottomRight.classList.contains(collision)){
+		return(true);
+	}
 }
 
 
