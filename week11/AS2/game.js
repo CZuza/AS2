@@ -154,44 +154,6 @@ function positionBomb() {
 
 }
 
-/* function moveBomb(bomb) {
-	var bombs = document.getElementsByClassName('bomb');
-
-	for (var i = 0; i < bombs.length; i++) {
-		var left = bombs[i].offsetLeft;
-		left--;
-
-		if (left > 0) {
-			bombs[i].style.left = left + 'px';
-		}
-		else {
-			bombs[i].classList = 'explosion';
-
-
-		}
-		/* bombs[i].style.left = left-- + 'px'; */
-
-/*	}
-	var player = document.getElementById('player');
-	var topLeft = document.elementFromPoint(player.offsetLeft, player.offsetTop);
-	var topRight = document.elementFromPoint(player.offsetLeft + 32, player.offsetTop);
-	var bottomLeft = document.elementFromPoint(player.offsetLeft, player.offsetTop + 46);
-	var bottomRight = document.elementFromPoint(player.offsetLeft + 32, player.offsetTop + 46);
-
-	if (topLeft.classList.contains('explosion') || topRight.classList.contains('explosion')
-		|| bottomLeft.classList.contains('explosion') || bottomRight.classList.contains('explosion')) {
-		clearInterval(timeout);
-		document.removeEventListener('keyup', keyup);
-		document.removeEventListener('keydown', keydown);
-
-		player.classList = 'character stand down dead';
-
-		var start = document.getElementsByClassName('start')[0];
-		start.style.display = 'block';
-		start.firstChild.nodeValue = 'Game Over';
-	}
-}
- */
 function positionTank() {
 	var tanks = document.getElementsByClassName('tank');
 	for (var i = 0; i < tanks.length; i++) {
@@ -223,6 +185,13 @@ function moveBomb(bomb) {
 		}
 		else{
 			bomb.classList = 'explosion';
+
+			//Remove the explosion after 1 sec.
+			setTimeout(function(){
+				bomb.parentNode.removeChild(bomb);
+			}, 1000)
+
+			clearInterval(timeout);
 		}
 	}, speed);
     
