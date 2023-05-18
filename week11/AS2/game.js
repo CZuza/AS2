@@ -6,6 +6,20 @@ var lastPressed = false;
 //This variable is supposed to determine if the message displays the "start" message
 var isStart = true;
 
+//This function will stop the character (in theory)
+function stopCharacter() {
+	clearInterval(timeout);
+	document.removeEventListener('keyup', keyup);
+	document.removeEventListener('keydown', keydown);
+}
+
+//This function will enable the character to move
+function moveCharacter() {
+	timeout = setInterval(move, 10);
+	document.addEventListener('keydown', keydown);
+	document.addEventListener('keyup', keyup);
+}
+
 function keyup(event) {
 	var player = document.getElementById('player');
 	if (event.keyCode == 37) {
@@ -26,22 +40,37 @@ function keyup(event) {
 	}
 
 	if (event.keyCode == 32) {
+
+		var timer = setInterval(function () {
+
+			player.className = 'character stand down fire';
+
+			var arrow = document.createElement('div');
+			arrow.classList = 'arrow';
+			arrow.style.left = player.offsetLeft + 'px';
+			arrow.style.top = player.offsetTop + 'px';
+			document.body.appendChild(arrow);
+
+			stopCharacter();
+			//Remove the explosion after 1.5 sec.
+			setTimeout(function () {
+				player.className = 'character stand down';
+				moveCharacter();
+			}, 500)
+
+			clearInterval(timer);
+		}, 10);
+		
+		
 		/* if(player.className == 'character stand down fire'){
 			lastPressed = 'down';
 		}
 		else {
 			lastPressed = 'down fire';
 		} */
-		lastPressed = 'down fire';
-
-		var arrow = document.createElement('div');
-		arrow.classList = 'arrow';
-		arrow.style.left = player.offsetLeft + 'px';
-		arrow.style.top = player.offsetTop + 'px';
-		document.body.appendChild(arrow);
 		//player.className = 'character stand down fire';
 	}
-
+    
 	player.className = 'character stand ' + lastPressed;
 }
 
@@ -120,12 +149,7 @@ function keydown(event) {
 	}
 }
 
-function stopCharacter() {
-	clearInterval(timeout);
-	document.removeEventListener('keyup', keyup);
-	document.removeEventListener('keydown', keydown);
-	player.classList = 'character stand down dead';
-}
+
 
 // This variable will be used to start and stop the tanks movement
 var tanksTimer = 0;
