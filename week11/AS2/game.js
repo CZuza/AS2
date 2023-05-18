@@ -103,6 +103,7 @@ function keydown(event) {
 	}
 }
 
+//A function that prevents the character from moving
 function stopCharacter() {
 	clearInterval(timeout);
 	document.removeEventListener('keyup', keyup);
@@ -122,7 +123,7 @@ function myLoadFunction() {
 		positionBomb();
 	}
 	else{
-		// To prevent the character from moving if Game Over message is clicked (not working :(| )
+		// To prevent the character from moving if Game Over message is clicked
 		start.addEventListener('click', stopCharacter);
 		// To stop the tanks from moving after Game Over message is clicked 
 		clearInterval(tanksTimer);
@@ -131,25 +132,27 @@ function myLoadFunction() {
 }
 
 function startGame() {
+	//The if statement determines if the message displayed is "start"
+    if (isStart){
 
-	var start = document.getElementById('start');
-	start.style.display = 'none';
+		var start = document.getElementById('start');
+		start.style.display = 'none';
 
-	timeout = setInterval(move, 10);
-	document.addEventListener('keydown', keydown);
-	document.addEventListener('keyup', keyup);
+		timeout = setInterval(move, 10);
+		document.addEventListener('keydown', keydown);
+		document.addEventListener('keyup', keyup);
 
-	//If the button displays "Start" (not "Game Over"), start the game if clicked
-	if(start.firstChild.nodeValue != 'Game Over'){
-		positionTank();
-		tanksTimer = setInterval(positionTank, 3000);
-	}
-	else{
-		// If the button displays 'Game Over', it will stay on the screen
-		var start = document.getElementsByClassName('start')[0];
-		start.style.display = 'block';
-	}
-
+		//If the button displays "Start" (not "Game Over"), start the game if clicked
+		if (start.firstChild.nodeValue != 'Game Over') {
+			positionTank();
+			tanksTimer = setInterval(positionTank, 3000);
+		}
+		else {
+			// If the button displays 'Game Over', it will stay on the screen
+			var start = document.getElementsByClassName('start')[0];
+			start.style.display = 'block';
+		}
+    }	
 }
 
 function positionBomb() {
@@ -227,6 +230,8 @@ function moveBomb(bomb) {
 		var start = document.getElementsByClassName('start')[0];
 		start.style.display = 'block';
 		start.firstChild.nodeValue = 'Game Over';
+		//This shows that the message is no longer "start"
+		isStart = false;
 	
 }
 }
