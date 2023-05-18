@@ -526,7 +526,7 @@ aside ul {list-style-type: none; margin-left: 0; padding-left: 0; margin-bottom:
 }
 
 .arrow.right {
-	transform: rotate(-180deg)
+	transform: rotate(0deg)
 }
 
 

@@ -25,6 +25,23 @@ function keyup(event) {
 		lastPressed = 'down';
 	}
 
+	if (event.keyCode == 32) {
+		/* if(player.className == 'character stand down fire'){
+			lastPressed = 'down';
+		}
+		else {
+			lastPressed = 'down fire';
+		} */
+		lastPressed = 'down fire';
+
+		var arrow = document.createElement('div');
+		arrow.classList = 'arrow';
+		arrow.style.left = player.offsetLeft + 'px';
+		arrow.style.top = player.offsetTop + 'px';
+		document.body.appendChild(arrow);
+		//player.className = 'character stand down fire';
+	}
+
 	player.className = 'character stand ' + lastPressed;
 }
 
@@ -203,23 +220,18 @@ function moveBomb(bomb) {
 
 	var timer = setInterval(function() {
 		left--;
-
-		if(left > random){
-			if(angleNum == 1){
-				bomb.style.left = left + 'px';
-			}
-			
+        //This if statement makes sure the bombs don't go offscreen
+		if(left > random && top > 0 && top < window.innerHeight - bomb.offsetHeight){
 			if(angleNum == 2){
 				top = top + angle;
-				bomb.style.left = left + 'px';
-				bomb.style.top = top + 'px';
 			}
 
 			if(angleNum == 3){
 				top = top - angle;
-				bomb.style.left = left + 'px';
-				bomb.style.top = top + 'px';
 			}
+
+			bomb.style.left = left + 'px';
+			bomb.style.top = top + 'px';
 		}
 		else{
 			bomb.classList = 'explosion';
