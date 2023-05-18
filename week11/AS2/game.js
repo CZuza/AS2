@@ -103,7 +103,6 @@ function keydown(event) {
 	}
 }
 
-//A function that prevents the character from moving
 function stopCharacter() {
 	clearInterval(timeout);
 	document.removeEventListener('keyup', keyup);
@@ -123,7 +122,7 @@ function myLoadFunction() {
 		positionBomb();
 	}
 	else{
-		// To prevent the character from moving if Game Over message is clicked
+		// To prevent the character from moving if Game Over message is clicked (not working :(| )
 		start.addEventListener('click', stopCharacter);
 		// To stop the tanks from moving after Game Over message is clicked 
 		clearInterval(tanksTimer);
@@ -132,7 +131,7 @@ function myLoadFunction() {
 }
 
 function startGame() {
-	//The if statement determines if the message displayed is "start"
+	//This if statement determines whether the display message was "start"
     if (isStart){
 
 		var start = document.getElementById('start');
@@ -177,7 +176,9 @@ function positionTank() {
 		var bomb = document.createElement('div');
 		bomb.classList = 'bomb';
 		var top = tanks[i].offsetTop;
+		//console.log(top);
 		var left = tanks[i].offsetLeft;
+		//console.log(left);
 
 		bomb.style.top = top + 10 + 'px';
 		bomb.style.left = left + 'px';
@@ -190,11 +191,16 @@ function positionTank() {
 function moveBomb(bomb) {
 	var left = bomb.offsetLeft;
 	var speed = Math.ceil(Math.random() * 25);
+	//The width of the window: 1536
+	//The leftmost point of the tanks: 1229
+	//982 is meant as a middleground between the leftmost 0 and the tanks
+	//without running the risk of exploding right after being shot
+	var random = Math.ceil(Math.random() * 982);
 
 	setInterval(function() {
 		left--;
 
-		if(left > 0){
+		if(left > random){
 			bomb.style.left = left + 'px';
 		}
 		else{
@@ -205,7 +211,7 @@ function moveBomb(bomb) {
 				bomb.parentNode.removeChild(bomb);
 			}, 1000)
 
-			clearInterval(timeout);
+			//clearInterval(timeout);
 		}
 	}, speed);
     
@@ -230,7 +236,7 @@ function moveBomb(bomb) {
 		var start = document.getElementsByClassName('start')[0];
 		start.style.display = 'block';
 		start.firstChild.nodeValue = 'Game Over';
-		//This shows that the message is no longer "start"
+		//This shows that the message is no longer "START"
 		isStart = false;
 	
 }
