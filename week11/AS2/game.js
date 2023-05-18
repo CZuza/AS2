@@ -190,18 +190,36 @@ function positionTank() {
 
 function moveBomb(bomb) {
 	var left = bomb.offsetLeft;
+	var top = bomb.offsetTop;
 	var speed = Math.ceil(Math.random() * 25);
+
+	var angleNum = Math.ceil(Math.random() * 3);
+    var angle = Math.random();
 	//The width of the window: 1536
 	//The leftmost point of the tanks: 1229
 	//982 is meant as a middleground between the leftmost 0 and the tanks
 	//without running the risk of exploding right after being shot
 	var random = Math.ceil(Math.random() * 982);
 
-	setInterval(function() {
+	var timer = setInterval(function() {
 		left--;
 
 		if(left > random){
-			bomb.style.left = left + 'px';
+			if(angleNum == 1){
+				bomb.style.left = left + 'px';
+			}
+			
+			if(angleNum == 2){
+				top = top + angle;
+				bomb.style.left = left + 'px';
+				bomb.style.top = top + 'px';
+			}
+
+			if(angleNum == 3){
+				top = top - angle;
+				bomb.style.left = left + 'px';
+				bomb.style.top = top + 'px';
+			}
 		}
 		else{
 			bomb.classList = 'explosion';
@@ -211,7 +229,7 @@ function moveBomb(bomb) {
 				bomb.parentNode.removeChild(bomb);
 			}, 1500)
 
-			//clearInterval(timeout);
+			clearInterval(timer);
 		}
 	}, speed);
     
