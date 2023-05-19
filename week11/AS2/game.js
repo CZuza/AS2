@@ -45,14 +45,12 @@ function keyup(event) {
 
 			player.className = 'character stand down fire';
 
-			var arrow = document.createElement('div');
-			arrow.classList = 'arrow';
+			var arrow = create('arrow');
 			arrow.style.left = player.offsetLeft + 'px';
 			arrow.style.top = player.offsetTop + 'px';
-			document.body.appendChild(arrow);
 
 			stopCharacter();
-			//Remove the explosion after 1.5 sec.
+			//Lets the character move after 0.5 sec.
 			setTimeout(function () {
 				player.className = 'character stand down';
 				moveCharacter();
@@ -163,12 +161,34 @@ function myLoadFunction() {
 		positionBomb();
 	}
 	else{
-		// To prevent the character from moving if Game Over message is clicked (not working :(| )
+		// To prevent the character from moving if Game Over message is clicked
 		start.addEventListener('click', stopCharacter);
 		// To stop the tanks from moving after Game Over message is clicked 
 		clearInterval(tanksTimer);
 	}
 
+	createLives(3);
+}
+
+livesCounter = 0;
+
+function createLives(nr) {
+	var ul = document.getElementsByClassName('health')[0];
+
+	for(var i = 0; i < nr; i++){
+		var li = document.createElement('li');
+		ul.appendChild(li);
+		livesCounter++;
+	}
+}
+
+function removeLives(nr) {
+	var ul = document.getElementsByClassName('health')[0];
+
+	for(var i = 0; i < nr; i++){
+		var li = ul.getElementsByTagName('li')[0];
+		ul.removeChild(li);
+	}
 }
 
 function startGame() {
@@ -214,8 +234,7 @@ function positionTank() {
 		var random = Math.ceil(Math.random() * 81 + 9);
 		tanks[i].style.top = random + 'vh';
 
-		var bomb = document.createElement('div');
-		bomb.classList = 'bomb';
+		var bomb = create('bomb');
 		var top = tanks[i].offsetTop;
 		//console.log(top);
 		var left = tanks[i].offsetLeft;
@@ -223,11 +242,21 @@ function positionTank() {
 
 		bomb.style.top = top + 10 + 'px';
 		bomb.style.left = left + 'px';
-		document.body.appendChild(bomb);
 
 		moveBomb(bomb);
 	}
 }
+
+function create(elementClass) {
+	var element = document.createElement('div');
+	element.classList = elementClass;
+	document.body.appendChild(element);
+
+	return(element);
+}
+
+//This variable will determine if the collision took place
+var boolCollider = false;
 
 function moveBomb(bomb) {
 	var left = bomb.offsetLeft;
@@ -305,23 +334,61 @@ function moveBomb(bomb) {
 	}
 	
 	
-	if (collide(player, 'explosion') == true) {
-        player.classList = 'character stand down dead';
-		// To prevent the character from moving after Game Over
-		clearInterval(timeout);
-		document.removeEventListener('keyup', keyup);
-		document.removeEventListener('keydown', keydown);
-		// To stop the tanks from moving after Game Over
-		clearInterval(tanksTimer);
+	var timer = setInterval(function () {
+		
+		if (collide(player, 'explosion') == true) {
 
-		var start = document.getElementsByClassName('start')[0];
-		start.style.display = 'block';
-		start.firstChild.nodeValue = 'Game Over';
-		//This shows that the message is no longer "START"
-		isStart = false;
+			//Waits for 0.05 sec.
+			setTimeout(function () {
+				boolCollider = true;
+			}, 50)
+
+			clearInterval(timer);
+		}
+	}, 10);
+    if(boolCollider){
+		removeLives(1);
+		livesCounter--;
+	}
+	//If the last life is about to be taken, no need to wait
+	//Otherwise the break gives the lives removal process essential breathing room
+	if(livesCounter != 1){
+		var timer = setInterval(function () {
+
+			if (collide(player, 'explosion') == true) {
+
+				//Waits for 1.5 sec.
+				setTimeout(function () {
+					boolCollider = true;
+				}, 1500)
+
+				clearInterval(timer);
+			}
+		}, 10);
+	}
+	
+    if(boolCollider){
+		if (livesCounter <= 0) {
+			player.classList = 'character stand down dead';
+			// To prevent the character from moving after Game Over
+			clearInterval(timeout);
+			document.removeEventListener('keyup', keyup);
+			document.removeEventListener('keydown', keydown);
+			// To stop the tanks from moving after Game Over
+			clearInterval(tanksTimer);
+
+			var start = document.getElementsByClassName('start')[0];
+			start.style.display = 'block';
+			start.firstChild.nodeValue = 'Game Over';
+			//This shows that the message is no longer "START"
+			isStart = false;
+		}
+		boolCollider = false;
 	}
 
 }
+
+
 
 function collide(element, collision) {
 	var topLeft = document.elementFromPoint(element.offsetLeft, element.offsetTop);
